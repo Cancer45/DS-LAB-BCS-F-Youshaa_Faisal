@@ -7,6 +7,8 @@ class Box
     
     public:
     Box() {}
+    
+    //copy constructor implemented as deep copy
     Box(const Box& other_box)
     {
         this->num_integers = other_box.num_integers;
@@ -18,15 +20,13 @@ class Box
         }
     }
     
+    //copy assignment operator implemented as shallow copy
     Box operator= (const Box& other_box)
     {
         this->num_integers = other_box.num_integers;
-        this->integers = new int[this->num_integers];
+        this->integers = other_box.integers;
         
-        for (int i = 0; i < this->num_integers; i++)
-        {
-            this->integers[i] = other_box.integers[i];
-        }
+        return *this;
     }
     ~Box()
     {
@@ -56,5 +56,19 @@ class Box
 
 int main ()
 {
+   Box box1;
    
+   box1.addIntegers(45);
+   box1.addIntegers(-3);
+   box1.addIntegers(1001);
+   
+   //deep copy
+   Box box2(box1);
+   
+   //shallow copy
+   Box box3;
+   
+   box3 = box1;
+
+    //shallow copy causes memory issues, code executes successfully without shallow copy
 }
