@@ -6,8 +6,9 @@ class Course
     float marks;
 
     public:
-    Course () {}
-    Course (std::string name, float marks) : name(name), marks(marks) {}
+    Course () : name("default"), marks(0) {}
+    Course (std::string name, float marks) : name(name), marks(marks)
+    {}
 
     void setMarks(float new_marks)
     {
@@ -32,7 +33,20 @@ class Student
     unsigned int num_courses;
 
     Student () {}
-    Student (unsigned int num_courses) {}
+    Student (unsigned int num_courses) 
+    {
+        courses = new Course[num_courses];
+    }
+
+    float getAverage()
+    {
+        float average = 0;
+
+        for (int i = 0; i < num_courses; i++)
+        {
+            average += courses[i].getMarks();
+        }
+    }
 };
 
 int main ()
